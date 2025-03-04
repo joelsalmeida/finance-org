@@ -9,7 +9,7 @@ export class UserMapper {
     return plainToInstance(UserEntity, {
       id: user.id,
       email: user.email,
-      password: user.password,
+      password: user.getHashedPassword(),
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     });

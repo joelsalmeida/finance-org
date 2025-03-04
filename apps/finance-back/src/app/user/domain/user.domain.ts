@@ -1,9 +1,10 @@
 import { Expose } from 'class-transformer';
 import { v4 as uuidv4 } from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 export class User {
   @Expose({ name: 'id' })
-  private _id: string;
+  private readonly _id: string;
 
   @Expose({ name: 'email' })
   private _email: string;
@@ -12,7 +13,7 @@ export class User {
   private _password: string;
 
   @Expose({ name: 'createdAt' })
-  private _createdAt: Date;
+  private readonly _createdAt: Date;
 
   @Expose({ name: 'updatedAt' })
   private _updatedAt: Date;
@@ -35,39 +36,48 @@ export class User {
     return this._id;
   }
 
-  set id(newId: string) {
-    this._id = newId;
-  }
-
   get email(): string {
     return this._email;
-  }
-
-  set email(newEmail: string) {
-    this._email = newEmail;
-  }
-
-  get password(): string {
-    return this._password;
-  }
-
-  set password(newPassword: string) {
-    this._password = newPassword;
   }
 
   get createdAt(): Date {
     return this._createdAt;
   }
 
-  set createdAt(newDate: Date) {
-    this._createdAt = newDate;
-  }
-
   get updatedAt(): Date {
     return this._updatedAt;
   }
 
-  set updatedAt(newDate: Date) {
-    this._updatedAt = newDate;
+  static hashPassword(password: string): string {
+    const SALT_ROUNDS = 10;
+    const SALT = bcrypt.genSaltSync(SALT_ROUNDS);
+
+    const hashedPassword = bcrypt.hashSync(password, SALT);
+    return hashedPassword;
+  }
+
+  /**
+   * Returns the hashed password (for mapping purposes only).
+   */
+  getHashedPassword(): string {
+    return this._password;
+  }
+
+  updateEmail(newEmail: string): void {
+    this._email = newEmail;
+    this.touch();
+  }
+
+  updatePassword(newPassword: string): void {
+    this._password = bcrypt.hashSync(newPassword, 10);
+    this.touch();
+  }
+
+  async validatePassword(plainTextPassword: string): Promise<boolean> {
+    return bcrypt.compare(plainTextPassword, this._password);
+  }
+
+  private touch(): void {
+    this._updatedAt = new Date();
   }
 }
