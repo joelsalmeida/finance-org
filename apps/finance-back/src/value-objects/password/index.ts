@@ -4,6 +4,8 @@ import {
   IsStrongPassword,
   MaxLength,
 } from 'class-validator';
+import { PasswordHasherInterface } from '../../utils';
+import { HashedPassword } from '../hashed-password';
 
 export class Password {
   @IsNotEmpty()
@@ -15,7 +17,7 @@ export class Password {
     minSymbols: 1,
     minUppercase: 1,
   })
-  readonly value: string;
+  private readonly value: string;
 
   constructor(value: string) {
     this.value = value;
@@ -33,6 +35,11 @@ export class Password {
 
       throw new Error(`Invalid password: ${errorMessages}`);
     }
+  }
+
+  hash(passwordHasher: PasswordHasherInterface): HashedPassword {
+    const hashedPassword = passwordHasher.hash(this.value);
+    return hashedPassword;
   }
 
   toValue() {

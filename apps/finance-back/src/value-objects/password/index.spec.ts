@@ -1,3 +1,4 @@
+import { PasswordHasherInterface } from '../../utils';
 import { Password } from './index';
 
 const EMPTY_PASSWORD = '';
@@ -49,5 +50,18 @@ describe('Password value object:', () => {
   it('should create a Password instance with a valid password', () => {
     const password = new Password(VALID_PASSWORD);
     expect(password.toValue()).toBe(VALID_PASSWORD);
+  });
+
+  it('should hash the password using the provided PasswordHasherInterface', () => {
+    const passwordHasherMock: PasswordHasherInterface = {
+      hash: jest.fn().mockReturnValue('hashedPassword'),
+      matches: jest.fn().mockReturnValue(true),
+    };
+
+    const password = new Password(VALID_PASSWORD);
+    const hashedPassword = password.hash(passwordHasherMock);
+
+    expect(passwordHasherMock.hash).toHaveBeenCalledWith(VALID_PASSWORD);
+    expect(hashedPassword).toBe('hashedPassword');
   });
 });
