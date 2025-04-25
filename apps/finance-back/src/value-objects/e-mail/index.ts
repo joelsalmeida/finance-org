@@ -7,6 +7,10 @@ export class Email {
   constructor(value: string) {
     this.value = value;
 
+    this.validateEmail();
+  }
+
+  private validateEmail() {
     const errors = validateSync(this);
 
     if (errors.length > 0) {
@@ -18,7 +22,7 @@ export class Email {
     }
   }
 
-  getValue() {
+  toValue() {
     return this.value;
   }
 }

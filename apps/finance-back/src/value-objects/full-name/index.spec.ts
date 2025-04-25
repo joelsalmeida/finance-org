@@ -31,8 +31,8 @@ describe('FullName value object:', () => {
   it('should create a valid FullName instance', () => {
     const fullName = new FullName('John', 'Doe');
 
-    expect(fullName.getFirstName()).toBe('John');
-    expect(fullName.getLastName()).toBe('Doe');
+    expect(fullName.toValue().firstName).toBe('John');
+    expect(fullName.toValue().lastName).toBe('Doe');
     expect(fullName.getFullName()).toBe('John Doe');
   });
 });

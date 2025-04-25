@@ -15,6 +15,6 @@ describe('Email value object:', () => {
 
   it('should create an Email instance with a valid email', () => {
     const email = new Email(VALID_EMAIL);
-    expect(email.getValue()).toBe(VALID_EMAIL);
+    expect(email.toValue()).toBe(VALID_EMAIL);
   });
 });

@@ -15,13 +15,7 @@ export class FullName {
   }
 
   private validateFullName() {
-    const fullName = `${this._firstName} ${this._lastName}`;
-
-    const FULL_NAME_IS_TOO_LARGE = fullName.length > 150;
-
-    if (FULL_NAME_IS_TOO_LARGE) {
-      throw new Error('Invalid full name: Full name is too long');
-    }
+    this.validateFullNameLength();
 
     const errors = validateSync(this);
 
@@ -34,12 +28,21 @@ export class FullName {
     }
   }
 
-  getFirstName(): string {
-    return this._firstName;
+  private validateFullNameLength() {
+    const fullName = `${this._firstName} ${this._lastName}`;
+
+    const FULL_NAME_IS_TOO_LARGE = fullName.length > 150;
+
+    if (FULL_NAME_IS_TOO_LARGE) {
+      throw new Error('Invalid full name: Full name is too long');
+    }
   }
 
-  getLastName(): string {
-    return this._lastName;
+  toValue() {
+    return {
+      firstName: this._firstName,
+      lastName: this._lastName,
+    };
   }
 
   getFullName(): string {

@@ -20,6 +20,10 @@ export class Password {
   constructor(value: string) {
     this.value = value;
 
+    this.validatePassword();
+  }
+
+  private validatePassword() {
     const errors = validateSync(this);
 
     if (errors.length > 0) {
@@ -31,7 +35,7 @@ export class Password {
     }
   }
 
-  getValue() {
+  toValue() {
     return this.value;
   }
 }

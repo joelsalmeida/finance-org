@@ -48,6 +48,6 @@ describe('Password value object:', () => {
 
   it('should create a Password instance with a valid password', () => {
     const password = new Password(VALID_PASSWORD);
-    expect(password.getValue()).toBe(VALID_PASSWORD);
+    expect(password.toValue()).toBe(VALID_PASSWORD);
   });
 });
