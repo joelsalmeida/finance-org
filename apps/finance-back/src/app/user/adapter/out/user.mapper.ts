@@ -1,27 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../../domain/user.domain';
 import { UserEntity } from './user.entity';
-import { plainToInstance } from 'class-transformer';
+import { Email, HashedPassword } from '../../../../value-objects';
 
 @Injectable()
 export class UserMapper {
   toEntity(user: User): UserEntity {
-    return plainToInstance(UserEntity, {
-      id: user.id,
-      email: user.email,
-      password: user.getHashedPassword(),
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    });
+    const userEntity = new UserEntity();
+
+    userEntity.id = user.id;
+    userEntity.email = user.email.toValue();
+    userEntity.password = user.password.toValue();
+    userEntity.createdAt = user.createdAt;
+    userEntity.updatedAt = user.updatedAt;
+
+    return userEntity;
   }
 
   toDomain(userEntity: UserEntity): User {
-    return plainToInstance(User, {
+    const userDomain = new User({
       id: userEntity.id,
-      email: userEntity.email,
-      password: userEntity.password,
+      email: new Email(userEntity.email),
+      password: new HashedPassword(userEntity.password),
       createdAt: userEntity.createdAt,
       updatedAt: userEntity.updatedAt,
     });
+
+    return userDomain;
   }
 }

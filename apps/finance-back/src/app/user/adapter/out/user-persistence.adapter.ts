@@ -6,19 +6,21 @@ import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserPersistenceAdapter implements UserPersistencePort {
-  constructor(private userMapper: UserMapper) {}
+  constructor(private readonly userMapper: UserMapper) {}
 
   async getUserByEmail(email: string): Promise<User> {
     const userEntity = await UserEntity.findOne({ where: { email } });
 
     if (!userEntity) {
+      // TODO: Define a custom domain error
       throw new Error('User not found.');
     }
 
-    return this.userMapper.toDomain(userEntity);
+    const userDomain = this.userMapper.toDomain(userEntity);
+    return userDomain;
   }
 
-  async persistUser(user: User): Promise<void> {
+  async save(user: User): Promise<void> {
     const userEntity: UserEntity = this.userMapper.toEntity(user);
     await userEntity.save();
   }
