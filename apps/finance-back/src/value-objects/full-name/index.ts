@@ -1,4 +1,8 @@
 import { validateSync, MinLength } from 'class-validator';
+import {
+  InvalidFullNameException,
+  FullNameIsTooLongException,
+} from './exceptions';
 
 export class FullName {
   @MinLength(2)
@@ -24,7 +28,7 @@ export class FullName {
         .flatMap((err) => Object.values(err.constraints ?? {}))
         .join(', ');
 
-      throw new Error(`Invalid full name: ${errorMessages}`);
+      throw new InvalidFullNameException(`Invalid full name: ${errorMessages}`);
     }
   }
 
@@ -34,7 +38,7 @@ export class FullName {
     const FULL_NAME_IS_TOO_LARGE = fullName.length > 150;
 
     if (FULL_NAME_IS_TOO_LARGE) {
-      throw new Error('Invalid full name: Full name is too long');
+      throw new FullNameIsTooLongException();
     }
   }
 

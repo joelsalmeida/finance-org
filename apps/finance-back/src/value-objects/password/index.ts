@@ -6,6 +6,7 @@ import {
 } from 'class-validator';
 import { PasswordHasherInterface } from '../../utils';
 import { HashedPassword } from '../hashed-password';
+import { InvalidPasswordException } from './exceptions';
 
 export class Password {
   @IsNotEmpty()
@@ -33,7 +34,7 @@ export class Password {
         .flatMap((err) => Object.values(err.constraints ?? {}))
         .join(', ');
 
-      throw new Error(`Invalid password: ${errorMessages}`);
+      throw new InvalidPasswordException(`Invalid password: ${errorMessages}`);
     }
   }
 

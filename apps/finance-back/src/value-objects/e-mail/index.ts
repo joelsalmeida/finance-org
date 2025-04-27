@@ -1,4 +1,5 @@
 import { validateSync, IsEmail } from 'class-validator';
+import { InvalidEmailException } from './exceptions';
 
 export class Email {
   @IsEmail()
@@ -18,7 +19,7 @@ export class Email {
         .flatMap((err) => Object.values(err.constraints ?? {}))
         .join(', ');
 
-      throw new Error(`Invalid email: ${errorMessages}`);
+      throw new InvalidEmailException(`Invalid email: ${errorMessages}`);
     }
   }
 
