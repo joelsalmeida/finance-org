@@ -9,7 +9,9 @@ import {
 import { User } from '../../../domain/user.domain';
 import { Email, Password } from '../../../../../value-objects';
 import { PasswordHasherInterface } from '../../../../../utils';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class UserFactory implements UserFactoryInterface {
   createUser(
     createUserInput: CreateUserInputType,

@@ -17,6 +17,6 @@ export class SaveUserController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async saveUser(@Body() userInput: SaveUserInput): Promise<void> {
     const saveUserCommand: SaveUserCommand = userInput.toCommand();
-    return this.saveUserUseCase.saveUser(saveUserCommand);
+    return this.saveUserUseCase.save(saveUserCommand);
   }
 }

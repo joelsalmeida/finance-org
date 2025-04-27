@@ -1,19 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { UserPersistencePort } from '../../ports/out/user-persistence.port';
 import { SaveUserCommand } from '../../ports/in';
 import { User } from '../../domain/user.domain';
 import { SaveUserUseCase } from '../../ports/in';
+import { UserFactoryInterface } from '../factories/user-factory/index.types';
+import { PasswordHasherInterface } from '../../../../utils';
 
 @Injectable()
-export class SeveUserService implements SaveUserUseCase {
-  constructor(private userPersistencePort: UserPersistencePort) {}
+export class SaveUserService implements SaveUserUseCase {
+  constructor(
+    private userPersistencePort: UserPersistencePort,
+    @Inject('UserFactoryInterface') private userFactory: UserFactoryInterface,
+    @Inject('PasswordHasherInterface')
+    private passwordHasher: PasswordHasherInterface
+  ) {}
 
-  async saveUser(command: SaveUserCommand): Promise<void> {
-    const userToSave: User = new User(
-      command.email,
-      User.hashPassword(command.password)
+  async save(command: SaveUserCommand): Promise<void> {
+    const userCreationResult = this.userFactory.createUser(
+      command,
+      this.passwordHasher
     );
 
-    await this.userPersistencePort.persistUser(userToSave);
+    // TODO: Define a custom domain error
+    if ('error' in userCreationResult) {
+      throw new Error(userCreationResult.error.message);
+    }
+
+    const userToPersist: User = userCreationResult.value;
+    await this.userPersistencePort.save(userToPersist);
   }
 }

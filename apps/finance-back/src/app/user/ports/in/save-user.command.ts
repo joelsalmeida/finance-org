@@ -1,3 +1,3 @@
 export class SaveUserCommand {
-  constructor(readonly email: string, readonly password: string) {}
+  constructor(readonly rawEmail: string, readonly rawPassword: string) {}
 }
