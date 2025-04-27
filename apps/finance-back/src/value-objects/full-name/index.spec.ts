@@ -18,7 +18,7 @@ describe('FullName value object:', () => {
     const longLastName = 'B'.repeat(76);
 
     expect(() => new FullName(longFirstName, longLastName)).toThrow(
-      'Invalid full name: Full name is too long'
+      'Invalid full name: full name is too long'
     );
   });
 
