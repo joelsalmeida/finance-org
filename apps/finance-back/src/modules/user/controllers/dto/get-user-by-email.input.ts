@@ -1,4 +1,4 @@
-import { GetUserByEmailCommand } from '.';
+import { GetUserByEmailCommand } from '../../application/commands';
 import { Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 

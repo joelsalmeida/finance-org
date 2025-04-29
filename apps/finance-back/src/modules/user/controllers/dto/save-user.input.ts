@@ -1,4 +1,4 @@
-import { SaveUserCommand } from '../../ports/in';
+import { SaveUserCommand } from '../../application/commands';
 import { Expose } from 'class-transformer';
 import {
   IsEmail,

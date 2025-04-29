@@ -5,9 +5,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { SaveUserUseCase } from '../../ports/in';
-import { SaveUserCommand } from '../../ports/in';
-import { SaveUserInput } from './save-user.input';
+import { SaveUserUseCase } from '../application/use-cases';
+import { SaveUserCommand } from '../application/commands';
+import { SaveUserInput } from './dto/save-user.input';
 
 @Controller('save-user')
 export class SaveUserController {

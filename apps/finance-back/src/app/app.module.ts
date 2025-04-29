@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { SaveUserService } from './user/application/services/seve-user.service';
+import { UserModule } from '../modules/user/user.module';
+import {
+  SaveUserService,
+  GetUserByEmailService,
+} from '../modules/user/application/services';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UserEntity } from './user/adapter/out';
-import { GetUserByEmailService } from './user/application/services/get-user-by-email.service';
-import { GetUserByEmailUseCase } from './user/ports/in';
+import { UserEntity } from '../modules/user/infrastructure/persistence';
+import { GetUserByEmailUseCase } from '../modules/user/application/use-cases';
 import { env } from 'process';
 import { ConfigModule } from '@nestjs/config';
 import { Dialect } from 'sequelize';

@@ -5,10 +5,10 @@ import {
   CreateUserOutputType,
   CreateUserSuccessOutputType,
   CreateUserFailureOutputType,
-} from './index.types';
-import { User } from '../../../domain/user.domain';
-import { Email, Password } from '../../../../../value-objects';
-import { PasswordHasherInterface } from '../../../../../utils';
+} from './user.factory.types';
+import { User } from '../../domain/user.domain';
+import { Email, Password } from '../../../../value-objects';
+import { PasswordHasherInterface } from '../../../../utils';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

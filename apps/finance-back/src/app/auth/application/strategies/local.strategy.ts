@@ -4,7 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { AuthenticateUserCommand } from '../../ports/in';
 import { PasswordHasher } from '../../../../utils';
-import { User } from '../../../user/domain/user.domain';
+import { User } from '../../../../modules/user/domain/user.domain';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {

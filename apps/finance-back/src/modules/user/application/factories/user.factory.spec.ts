@@ -1,9 +1,8 @@
-import { UserFactory } from './index';
-import { PasswordHasherInterface } from '../../../../../utils';
-import { CreateUserInputType } from './index.types';
-import { User } from '../../../domain/user.domain';
-import { Email, Password } from '../../../../../value-objects';
-import { HashedPassword } from '../../../../../value-objects/hashed-password';
+import { UserFactory } from './user.factory';
+import { PasswordHasherInterface } from '../../../../utils';
+import { CreateUserInputType } from './user.factory.types';
+import { User } from '../../domain/user.domain';
+import { Email, Password, HashedPassword } from '../../../../value-objects';
 
 const VALID_EMAIL = 'valid@email.com';
 const VALID_PASSWORD = 'Secure#123';

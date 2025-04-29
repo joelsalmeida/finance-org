@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthenticateUserCommand } from '../../ports/in';
-import { GetUserByEmailCommand } from '../../../user/ports/in';
-import { GetUserByEmailUseCase } from '../../../user/ports/in';
-import { User } from '../../../user/domain/user.domain';
+import { GetUserByEmailCommand } from '../../../../modules/user/application/commands';
+import { GetUserByEmailUseCase } from '../../../../modules/user/application/use-cases';
+import { User } from '../../../../modules/user/domain/user.domain';
 import { PasswordHasherInterface } from '../../../../utils';
 import { InvalidCredentialsException } from '../../exceptions/invalid-credentials.exception';
 

@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { UserPersistencePort } from '../../ports/out/user-persistence.port';
 import { User } from '../../domain/user.domain';
-import { UserMapper } from './user.mapper';
-import { UserEntity } from './user.entity';
+import { UserEntity, UserMapper } from '.';
 
 @Injectable()
 export class UserPersistenceAdapter implements UserPersistencePort {
-  constructor(private readonly userMapper: UserMapper) {}
+  constructor(
+    @Inject('UserMapper')
+    private readonly userMapper: UserMapper
+  ) {}
 
   async getUserByEmail(email: string): Promise<User> {
     const userEntity = await UserEntity.findOne({ where: { email } });

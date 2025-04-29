@@ -1,5 +1,5 @@
-import { PasswordHasherInterface } from '../../../../../utils';
-import { User } from '../../../domain/user.domain';
+import { PasswordHasherInterface } from '../../../../utils';
+import { User } from '../../domain/user.domain';
 
 export type CreateUserInputType = { rawEmail: string; rawPassword: string };
 

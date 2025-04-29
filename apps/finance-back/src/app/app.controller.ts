@@ -10,9 +10,10 @@ import {
 import { LocalAuthGuard } from './auth/guards/local-auth.guard';
 import { AuthService } from './auth/application/services/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { GetUserByEmailInput, GetUserByEmailUseCase } from './user/ports/in';
-import { User } from './user/domain/user.domain';
+import { GetUserByEmailInput } from '../modules/user/controllers';
+import { User } from '../modules/user/domain/user.domain';
 import { AuthenticateInput } from './auth/ports/in';
+import { GetUserByEmailUseCase } from '../modules/user/application/use-cases';
 
 @Controller()
 export class AppController {
