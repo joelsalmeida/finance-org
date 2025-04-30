@@ -1,4 +1,4 @@
-import { PasswordHasherInterface } from '../../utils';
+import { PasswordHasherPort } from '../../modules/auth/ports/out';
 import { Password } from './index';
 
 const EMPTY_PASSWORD = '';
@@ -52,8 +52,8 @@ describe('Password value object:', () => {
     expect(password.toValue()).toBe(VALID_PASSWORD);
   });
 
-  it('should hash the password using the provided PasswordHasherInterface', () => {
-    const passwordHasherMock: PasswordHasherInterface = {
+  it('should hash the password using the provided PasswordHasherPort', () => {
+    const passwordHasherMock: PasswordHasherPort = {
       hash: jest.fn().mockReturnValue('hashedPassword'),
       matches: jest.fn().mockReturnValue(true),
     };

@@ -1,4 +1,4 @@
-import { PasswordHasherInterface } from '../../../../utils';
+import { PasswordHasherPort } from '../../../auth/ports/out';
 import { User } from '../../domain/user.domain';
 
 export type CreateUserInputType = { rawEmail: string; rawPassword: string };
@@ -20,6 +20,6 @@ export type CreateUserOutputType =
 export interface UserFactoryInterface {
   createUser(
     createUserInput: CreateUserInputType,
-    passwordHasher: PasswordHasherInterface
+    passwordHasher: PasswordHasherPort
   ): CreateUserOutputType;
 }

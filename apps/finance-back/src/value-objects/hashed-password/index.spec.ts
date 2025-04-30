@@ -1,5 +1,5 @@
+import { PasswordHasherPort } from '../../modules/auth/ports/out';
 import { HashedPassword } from './index';
-import { PasswordHasherInterface } from '../../utils';
 
 const HASHED_PASSWORD_VALUE = 'HASHED_PASSWORD';
 const PLAIN_TEXT_PASSWORD = 'PLAIN_TEXT_PASSWORD';
@@ -11,7 +11,7 @@ describe('HashedPassword', () => {
     hashedPassword = new HashedPassword(HASHED_PASSWORD_VALUE);
   });
 
-  const passwordHasherMock: PasswordHasherInterface = {
+  const passwordHasherMock: PasswordHasherPort = {
     hash: jest.fn().mockReturnValue(HASHED_PASSWORD_VALUE),
     matches: jest.fn().mockReturnValue(true),
   };

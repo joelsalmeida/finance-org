@@ -1,10 +1,10 @@
 import {
-  validateSync,
   IsNotEmpty,
   IsStrongPassword,
   MaxLength,
+  validateSync,
 } from 'class-validator';
-import { PasswordHasherInterface } from '../../utils';
+import { PasswordHasherPort } from '../../modules/auth/ports/out';
 import { HashedPassword } from '../hashed-password';
 import { InvalidPasswordException } from './exceptions';
 
@@ -38,7 +38,7 @@ export class Password {
     }
   }
 
-  hash(passwordHasher: PasswordHasherInterface): HashedPassword {
+  hash(passwordHasher: PasswordHasherPort): HashedPassword {
     const hashedPassword = passwordHasher.hash(this.value);
     return hashedPassword;
   }

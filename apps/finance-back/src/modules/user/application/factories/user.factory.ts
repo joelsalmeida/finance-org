@@ -1,21 +1,21 @@
+import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
+import { Email, Password } from '../../../../value-objects';
+import { PasswordHasherPort } from '../../../auth/ports/out';
+import { User } from '../../domain/user.domain';
 import {
-  UserFactoryInterface,
+  CreateUserFailureOutputType,
   CreateUserInputType,
   CreateUserOutputType,
   CreateUserSuccessOutputType,
-  CreateUserFailureOutputType,
+  UserFactoryInterface,
 } from './user.factory.types';
-import { User } from '../../domain/user.domain';
-import { Email, Password } from '../../../../value-objects';
-import { PasswordHasherInterface } from '../../../../utils';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserFactory implements UserFactoryInterface {
   createUser(
     createUserInput: CreateUserInputType,
-    passwordHasher: PasswordHasherInterface
+    passwordHasher: PasswordHasherPort
   ): CreateUserOutputType {
     try {
       const { rawEmail, rawPassword } = createUserInput;

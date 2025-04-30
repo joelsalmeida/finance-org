@@ -1,4 +1,4 @@
-import { PasswordHasherInterface } from '../../utils';
+import { PasswordHasherPort } from '../../modules/auth/ports/out';
 
 export class HashedPassword {
   private readonly value: string;
@@ -9,7 +9,7 @@ export class HashedPassword {
 
   matches(
     plainTextPassword: string,
-    passwordHasher: PasswordHasherInterface
+    passwordHasher: PasswordHasherPort
   ): Promise<boolean> {
     return passwordHasher.matches(plainTextPassword, this);
   }

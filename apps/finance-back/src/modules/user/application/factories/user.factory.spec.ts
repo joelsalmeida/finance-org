@@ -1,8 +1,8 @@
-import { UserFactory } from './user.factory';
-import { PasswordHasherInterface } from '../../../../utils';
-import { CreateUserInputType } from './user.factory.types';
+import { Email, HashedPassword, Password } from '../../../../value-objects';
+import { PasswordHasherPort } from '../../../auth/ports/out';
 import { User } from '../../domain/user.domain';
-import { Email, Password, HashedPassword } from '../../../../value-objects';
+import { UserFactory } from './user.factory';
+import { CreateUserInputType } from './user.factory.types';
 
 const VALID_EMAIL = 'valid@email.com';
 const VALID_PASSWORD = 'Secure#123';
@@ -11,7 +11,7 @@ const SHORT_PASSWORD = 'short';
 
 describe('UserFactory', () => {
   let userFactory: UserFactory;
-  let mockPasswordHasher: PasswordHasherInterface;
+  let mockPasswordHasher: PasswordHasherPort;
 
   beforeEach(() => {
     userFactory = new UserFactory();
