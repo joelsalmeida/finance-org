@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PasswordHasherPort } from '../../../auth/ports/out';
 import { User } from '../../domain/user.domain';
 import { UserPersistencePort } from '../../ports/out/user-persistence.port';
-import { SaveUserCommand } from '../commands';
+import { CreateUserCommand } from '../commands';
 import { UserFactoryInterface } from '../factories/user.factory.types';
-import { SaveUserUseCase } from '../use-cases';
+import { CreateUserUseCase } from '../use-cases';
 
 @Injectable()
-export class SaveUserService implements SaveUserUseCase {
+export class CreateUserService implements CreateUserUseCase {
   constructor(
     private userPersistencePort: UserPersistencePort,
     @Inject('UserFactory') private userFactory: UserFactoryInterface,
@@ -15,7 +15,7 @@ export class SaveUserService implements SaveUserUseCase {
     private passwordHasher: PasswordHasherPort
   ) {}
 
-  async save(command: SaveUserCommand): Promise<void> {
+  async save(command: CreateUserCommand): Promise<void> {
     const userCreationResult = this.userFactory.createUser(
       command,
       this.passwordHasher

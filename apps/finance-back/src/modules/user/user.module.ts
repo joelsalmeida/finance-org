@@ -2,14 +2,14 @@ import { Module, Provider } from '@nestjs/common';
 import { BcryptPasswordHasherService } from '../shared/infrastructure/hashing/bcrypt-password-hasher.service';
 import { UserFactory } from './application/factories';
 import {
+  CreateUserService,
   FindUserByEmailService,
-  SaveUserService,
 } from './application/services';
 import {
+  CreateUserUseCase,
   FindUserByEmailUseCase,
-  SaveUserUseCase,
 } from './application/use-cases';
-import { FindUserByEmailController, SaveUserController } from './controllers';
+import { CreateUserController, FindUserByEmailController } from './controllers';
 import {
   UserMapper,
   UserPersistenceAdapter,
@@ -17,7 +17,7 @@ import {
 import { UserPersistencePort } from './ports/out/user-persistence.port';
 
 export const UserProviders: Provider[] = [
-  { provide: SaveUserUseCase, useClass: SaveUserService },
+  { provide: CreateUserUseCase, useClass: CreateUserService },
   { provide: UserPersistencePort, useClass: UserPersistenceAdapter },
   { provide: FindUserByEmailUseCase, useClass: FindUserByEmailService },
   { provide: 'UserFactory', useClass: UserFactory },
@@ -27,7 +27,7 @@ export const UserProviders: Provider[] = [
 
 @Module({
   providers: [...UserProviders],
-  controllers: [SaveUserController, FindUserByEmailController],
+  controllers: [CreateUserController, FindUserByEmailController],
   exports: [...UserProviders],
 })
 export class UserModule {}

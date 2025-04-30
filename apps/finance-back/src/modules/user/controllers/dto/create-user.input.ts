@@ -1,4 +1,3 @@
-import { SaveUserCommand } from '../../application/commands';
 import { Expose } from 'class-transformer';
 import {
   IsEmail,
@@ -6,8 +5,9 @@ import {
   IsStrongPassword,
   MaxLength,
 } from 'class-validator';
+import { CreateUserCommand } from '../../application/commands';
 
-export class SaveUserInput {
+export class CreateUserInput {
   @Expose()
   @IsNotEmpty()
   @IsEmail()
@@ -25,7 +25,7 @@ export class SaveUserInput {
   })
   readonly password: string;
 
-  toCommand(): SaveUserCommand {
-    return new SaveUserCommand(this.email, this.password);
+  toCommand(): CreateUserCommand {
+    return new CreateUserCommand(this.email, this.password);
   }
 }
