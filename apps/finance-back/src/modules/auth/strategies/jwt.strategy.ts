@@ -1,6 +1,6 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import { env } from 'process';
 
 @Injectable()
@@ -11,6 +11,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: env.JWT_SECRET,
     });
+
+    console.log('##### JwtStrategy env.JWT_SECRET: ', env.JWT_SECRET);
   }
 
   async validate(validateCommand: { username: string; sub: string }) {

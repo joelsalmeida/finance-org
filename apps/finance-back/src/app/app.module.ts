@@ -1,24 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from '../modules/user/user.module';
-import {
-  SaveUserService,
-  GetUserByEmailService,
-} from '../modules/user/application/services';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { UserEntity } from '../modules/user/infrastructure/persistence';
-import { GetUserByEmailUseCase } from '../modules/user/application/use-cases';
-import { env } from 'process';
 import { ConfigModule } from '@nestjs/config';
+import { RouterModule } from '@nestjs/core';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { env } from 'process';
 import { Dialect } from 'sequelize';
+import { AuthModule } from '../modules/auth/auth.module';
+import { UserEntity } from '../modules/user/infrastructure/persistence';
+import { UserModule } from '../modules/user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UserModule,
+    RouterModule.register([
+      { path: 'users', module: UserModule },
+      { path: 'auth', module: AuthModule },
+    ]),
     SequelizeModule.forRoot({
       dialect: env.DATABASE_DIALECT as Dialect,
       host: env.DATABASE_HOST,
@@ -29,12 +27,6 @@ import { Dialect } from 'sequelize';
       models: [UserEntity],
       synchronize: true,
     }),
-  ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-    SaveUserService,
-    { provide: GetUserByEmailUseCase, useClass: GetUserByEmailService },
   ],
 })
 export class AppModule {}
