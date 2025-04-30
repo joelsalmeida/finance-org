@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserPersistencePort } from '../../ports/out/user-persistence.port';
-import { User } from '../../domain/user.domain';
 import { UserEntity, UserMapper } from '.';
+import { User } from '../../domain/user.domain';
+import { UserPersistencePort } from '../../ports/out/user-persistence.port';
 
 @Injectable()
 export class UserPersistenceAdapter implements UserPersistencePort {
@@ -10,7 +10,7 @@ export class UserPersistenceAdapter implements UserPersistencePort {
     private readonly userMapper: UserMapper
   ) {}
 
-  async getUserByEmail(email: string): Promise<User> {
+  async findUserByEmail(email: string): Promise<User> {
     const userEntity = await UserEntity.findOne({ where: { email } });
 
     if (!userEntity) {

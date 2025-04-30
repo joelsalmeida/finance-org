@@ -1,3 +1,3 @@
-export class GetUserByEmailCommand {
+export class FindUserByEmailCommand {
   constructor(readonly email: string) {}
 }

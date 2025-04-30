@@ -4,8 +4,8 @@ import { PassportModule } from '@nestjs/passport';
 import { env } from 'process';
 import { BcryptPasswordHasherService } from '../shared/infrastructure/hashing/bcrypt-password-hasher.service';
 import { JwtTokenGeneratorService } from '../shared/infrastructure/token/jwt-token-generator.service';
-import { GetUserByEmailService } from '../user/application/services';
-import { GetUserByEmailUseCase } from '../user/application/use-cases';
+import { FindUserByEmailService } from '../user/application/services';
+import { FindUserByEmailUseCase } from '../user/application/use-cases';
 import {
   UserMapper,
   UserPersistenceAdapter,
@@ -21,7 +21,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 export const AuthProviders: Provider[] = [
   { provide: 'UserMapper', useClass: UserMapper },
   { provide: AuthenticateUserUseCase, useClass: AuthenticateUserService },
-  { provide: GetUserByEmailUseCase, useClass: GetUserByEmailService },
+  { provide: FindUserByEmailUseCase, useClass: FindUserByEmailService },
   { provide: PasswordHasherPort, useClass: BcryptPasswordHasherService },
   { provide: TokenGeneratorPort, useClass: JwtTokenGeneratorService },
   { provide: UserPersistencePort, useClass: UserPersistenceAdapter },

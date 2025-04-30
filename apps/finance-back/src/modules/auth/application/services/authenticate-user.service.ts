@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { GetUserByEmailCommand } from '../../../user/application/commands';
-import { GetUserByEmailUseCase } from '../../../user/application/use-cases';
+import { FindUserByEmailCommand } from '../../../user/application/commands';
+import { FindUserByEmailUseCase } from '../../../user/application/use-cases';
 import { User } from '../../../user/domain/user.domain';
 import { InvalidCredentialsException } from '../../exceptions';
 import { PasswordHasherPort } from '../../ports/out';
@@ -10,13 +10,13 @@ import { AuthenticateUserUseCase } from '../use-cases';
 @Injectable()
 export class AuthenticateUserService implements AuthenticateUserUseCase {
   constructor(
-    private getUserByEmailService: GetUserByEmailUseCase,
+    private findUserByEmailService: FindUserByEmailUseCase,
     private passwordHasher: PasswordHasherPort
   ) {}
 
   async authenticateUser(command: AuthenticateUserCommand): Promise<User> {
-    const userFound = await this.getUserByEmailService.getUserByEmail(
-      new GetUserByEmailCommand(command.email)
+    const userFound = await this.findUserByEmailService.findUserByEmail(
+      new FindUserByEmailCommand(command.email)
     );
 
     const passwordMatches = await userFound.password.matches(

@@ -1,6 +1,6 @@
 import { Email, HashedPassword } from '../../../value-objects';
 
-export type UserAtributes = {
+export type UserAttributes = {
   id: string;
   email: Email;
   password: HashedPassword;
@@ -15,8 +15,8 @@ export class User {
   private readonly _createdAt: Date;
   private _updatedAt: Date;
 
-  constructor(userAtributes: UserAtributes) {
-    const { id, email, password, createdAt, updatedAt } = userAtributes;
+  constructor(userAttributes: UserAttributes) {
+    const { id, email, password, createdAt, updatedAt } = userAttributes;
 
     this._id = id;
     this._email = email;

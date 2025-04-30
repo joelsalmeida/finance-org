@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { SaveUserCommand } from '../application/commands';
 import { SaveUserUseCase } from '../application/use-cases';
-import { SaveUserInput } from './dto/save-user.input';
+import { SaveUserInput } from './dto';
 
 @Controller()
 export class SaveUserController {
