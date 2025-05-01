@@ -11,8 +11,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: env.JWT_SECRET,
     });
-
-    console.log('##### JwtStrategy env.JWT_SECRET: ', env.JWT_SECRET);
   }
 
   async validate(validateCommand: { username: string; sub: string }) {
