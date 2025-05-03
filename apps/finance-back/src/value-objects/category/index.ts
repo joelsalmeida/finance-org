@@ -1,5 +1,5 @@
-import { ALLOWED_CATEGORY_NAMES, CategoryNameType } from './index.types';
 import { InvalidCategoryNameException } from './exceptions';
+import { ALLOWED_CATEGORY_NAMES, CategoryNameType } from './index.types';
 
 export class Category {
   private static readonly ALLOWED_CATEGORIES = ALLOWED_CATEGORY_NAMES;
@@ -38,5 +38,9 @@ export class Category {
 
   toString(): string {
     return this.categoryName;
+  }
+
+  equals(other: Category): boolean {
+    return this.categoryName === other.categoryName;
   }
 }

@@ -31,4 +31,8 @@ export class AccountNumber {
   toString(): string {
     return this.id;
   }
+
+  equals(other: AccountNumber): boolean {
+    return this.id === other.id;
+  }
 }

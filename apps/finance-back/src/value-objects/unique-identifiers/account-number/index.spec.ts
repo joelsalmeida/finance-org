@@ -38,4 +38,20 @@ describe('AccountNumber', () => {
       expect(accountNumber.toString()).toBe(validAccountNumber);
     });
   });
+
+  describe('equals', () => {
+    it('should return true when two AccountNumber instances have the same value', () => {
+      const accountNumber = AccountNumber.fromString('1234-5678-9012');
+      const sameAccountNumber = AccountNumber.fromString('1234-5678-9012');
+
+      expect(accountNumber.equals(sameAccountNumber)).toBe(true);
+    });
+
+    it('should return false when two AccountNumber instances have different values', () => {
+      const accountNumber = AccountNumber.fromString('1234-5678-9012');
+      const differentAccountNumber = AccountNumber.fromString('9876-5432-1098');
+
+      expect(accountNumber.equals(differentAccountNumber)).toBe(false);
+    });
+  });
 });
