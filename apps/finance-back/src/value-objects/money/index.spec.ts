@@ -1,11 +1,12 @@
-import { Money } from './index';
 import {
   InsufficientMoneyAmountException,
   InvalidMoneyAmountException,
   MoneyMustBeIntegerException,
   NegativeMoneyAmountException,
 } from './exceptions';
+import { Money } from './index';
 
+// TODO: Improve test organization - group tests of the same method.
 describe('Money', () => {
   it('fails to create Money when amount is Infinity or NaN', () => {
     expect(() => Money.fromCents(Infinity)).toThrow(
@@ -80,5 +81,17 @@ describe('Money', () => {
 
     expect(result.toNumber()).toBe(0);
     expect(result.toBRL()).toBe('R$0.00');
+  });
+
+  it('isZero method should return true when the amount is zero', () => {
+    const money = Money.fromCents(0);
+
+    expect(money.isZero()).toBe(true);
+  });
+
+  it('isZero method should return false when the amount is greater than zero', () => {
+    const money = Money.fromCents(100);
+
+    expect(money.isZero()).toBe(false);
   });
 });

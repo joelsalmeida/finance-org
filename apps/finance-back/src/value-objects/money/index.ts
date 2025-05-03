@@ -26,6 +26,10 @@ export class Money {
     return new Money(amountInCents);
   }
 
+  isZero(): boolean {
+    return this.amountInCents === 0;
+  }
+
   add(other: Money): Money {
     const amountSumInCents = this.amountInCents + other.toNumber();
     return new Money(amountSumInCents);
