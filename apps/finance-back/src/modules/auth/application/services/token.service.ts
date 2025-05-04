@@ -21,7 +21,7 @@ export class TokenService implements GenerateAccessTokenUseCase {
 
     const jwtPayload: JwtPayload = {
       username: command.email,
-      sub: userFound.id,
+      sub: userFound.id.toValue(),
     };
 
     return {

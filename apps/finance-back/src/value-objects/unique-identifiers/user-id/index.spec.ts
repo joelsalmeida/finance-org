@@ -13,14 +13,14 @@ describe('UserId', () => {
 
     expect(userId instanceof UserId).toBe(true);
 
-    expect(userId.toString()).toMatch(UUID_REGEX_PATTERN);
+    expect(userId.toValue()).toMatch(UUID_REGEX_PATTERN);
   });
 
   it('creates from valid UUID string', () => {
     const validRawUUID = 'a92a4d72-cf1d-4892-94fb-44751e8b5c2a';
     const userId = UserId.fromString(validRawUUID);
 
-    expect(userId.toString()).toBe(validRawUUID);
+    expect(userId.toValue()).toBe(validRawUUID);
   });
 
   it('throws on invalid UUID string', () => {

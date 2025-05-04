@@ -1,7 +1,8 @@
 import { Email, HashedPassword } from '../../../value-objects';
+import { UserId } from '../../../value-objects/unique-identifiers';
 
 export type UserAttributes = {
-  id: string;
+  id: UserId;
   email: Email;
   password: HashedPassword;
   createdAt: Date;
@@ -9,7 +10,7 @@ export type UserAttributes = {
 };
 
 export class User {
-  private readonly _id: string;
+  private readonly _id: UserId;
   private _email: Email;
   private _password: HashedPassword;
   private readonly _createdAt: Date;
@@ -25,7 +26,7 @@ export class User {
     this._updatedAt = updatedAt;
   }
 
-  get id(): string {
+  get id(): UserId {
     return this._id;
   }
 

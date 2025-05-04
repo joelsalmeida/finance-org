@@ -21,7 +21,7 @@ export class UserId {
     return new UserId(id);
   }
 
-  toString(): string {
+  toValue(): string {
     return this.id;
   }
 
