@@ -1,3 +1,4 @@
+// Todo: Rename this file. DomainException maybe...
 export abstract class DomainBaseException extends Error {
   abstract readonly code: string;
 
