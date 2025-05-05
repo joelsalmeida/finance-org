@@ -14,8 +14,6 @@ describe('UserFactory', () => {
   let mockPasswordHasher: PasswordHasherPort;
 
   beforeEach(() => {
-    userFactory = new UserFactory();
-
     mockPasswordHasher = {
       hash: jest.fn(
         (password: string) => new HashedPassword(`hashed-${password}`)
@@ -27,6 +25,8 @@ describe('UserFactory', () => {
           )
       ),
     };
+
+    userFactory = new UserFactory(mockPasswordHasher);
   });
 
   it('should create a new user successfully', () => {
@@ -35,15 +35,15 @@ describe('UserFactory', () => {
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.createUser(createUserInput, mockPasswordHasher);
+    const result = userFactory.create(createUserInput);
 
     if (result.success === true) {
-      expect(result.value).toBeInstanceOf(User);
-      expect(result.value.id).toBeDefined();
-      expect(result.value.email).toBeInstanceOf(Email);
-      expect(result.value.email.toValue()).toBe(VALID_EMAIL);
-      expect(result.value.createdAt).toBeInstanceOf(Date);
-      expect(result.value.updatedAt).toBeInstanceOf(Date);
+      expect(result.data).toBeInstanceOf(User);
+      expect(result.data.id).toBeDefined();
+      expect(result.data.email).toBeInstanceOf(Email);
+      expect(result.data.email.toValue()).toBe(VALID_EMAIL);
+      expect(result.data.createdAt).toBeInstanceOf(Date);
+      expect(result.data.updatedAt).toBeInstanceOf(Date);
       expect(mockPasswordHasher.hash).toHaveBeenCalledWith(VALID_PASSWORD);
     } else {
       fail('Expected result to be a success, but it was a failure');
@@ -56,7 +56,7 @@ describe('UserFactory', () => {
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.createUser(createUserInput, mockPasswordHasher);
+    const result = userFactory.create(createUserInput);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
@@ -72,7 +72,7 @@ describe('UserFactory', () => {
       rawPassword: SHORT_PASSWORD,
     };
 
-    const result = userFactory.createUser(createUserInput, mockPasswordHasher);
+    const result = userFactory.create(createUserInput);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
@@ -92,11 +92,11 @@ describe('UserFactory', () => {
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.createUser(createUserInput, mockPasswordHasher);
+    const result = userFactory.create(createUserInput);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
-      expect(result.error.message).toBe('Unexpected error');
+      expect(result.error.message).toBe('An Unexpected error occurred.');
     } else {
       fail('Expected result to be a failure, but it was a success');
     }

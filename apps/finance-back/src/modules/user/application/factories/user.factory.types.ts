@@ -1,25 +1,14 @@
-import { PasswordHasherPort } from '../../../auth/ports/out';
+import {
+  FactoryInterface,
+  FactoryOutputType,
+} from '../../../shared/domain/contracts/factory.types';
 import { User } from '../../domain/user.domain';
 
 export type CreateUserInputType = { rawEmail: string; rawPassword: string };
 
-export type CreateUserSuccessOutputType = {
-  success: true;
-  value: User;
-};
-
-export type CreateUserFailureOutputType = {
-  success: false;
-  error: Error;
-};
-
-export type CreateUserOutputType =
-  | CreateUserSuccessOutputType
-  | CreateUserFailureOutputType;
-
-export interface UserFactoryInterface {
-  createUser(
-    createUserInput: CreateUserInputType,
-    passwordHasher: PasswordHasherPort
-  ): CreateUserOutputType;
+export interface UserFactoryInterface
+  extends FactoryInterface<User, CreateUserInputType> {
+  create(
+    createTransactionAttributes: CreateUserInputType
+  ): FactoryOutputType<User>;
 }

@@ -1,48 +1,61 @@
-import { Injectable } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  DomainBaseException,
+  UnexpectedFactoryException,
+} from '../../../../exceptions';
 import { Email, Password } from '../../../../value-objects';
+import { UserId } from '../../../../value-objects/unique-identifiers';
 import { PasswordHasherPort } from '../../../auth/ports/out';
+import {
+  FactoryFailureOutputType,
+  FactoryOutputType,
+  FactorySuccessOutputType,
+} from '../../../shared/domain/contracts/factory.types';
 import { User } from '../../domain/user.domain';
 import {
-  CreateUserFailureOutputType,
   CreateUserInputType,
-  CreateUserOutputType,
-  CreateUserSuccessOutputType,
   UserFactoryInterface,
 } from './user.factory.types';
 
 @Injectable()
 export class UserFactory implements UserFactoryInterface {
-  createUser(
-    createUserInput: CreateUserInputType,
-    passwordHasher: PasswordHasherPort
-  ): CreateUserOutputType {
+  constructor(
+    @Inject('PasswordHasherPort')
+    private readonly passwordHasher: PasswordHasherPort
+  ) {}
+
+  create(createUserInput: CreateUserInputType): FactoryOutputType<User> {
     try {
       const { rawEmail, rawPassword } = createUserInput;
 
-      const uuid = uuidv4();
+      const userId = UserId.create();
       const email = new Email(rawEmail);
-      const hashedPassword = new Password(rawPassword).hash(passwordHasher);
+      const hashedPassword = new Password(rawPassword).hash(
+        this.passwordHasher
+      );
       const currentDate = new Date();
 
       const userProps = {
-        id: uuid,
+        id: userId,
         email: email,
         password: hashedPassword,
         createdAt: currentDate,
         updatedAt: currentDate,
       };
 
-      const successOutput: CreateUserSuccessOutputType = {
+      const successOutput: FactorySuccessOutputType<User> = {
         success: true,
-        value: new User(userProps),
+        data: new User(userProps),
       };
 
       return successOutput;
     } catch (error) {
-      const failureOutput: CreateUserFailureOutputType = {
+      const failureOutput: FactoryFailureOutputType = {
         success: false,
-        error: error instanceof Error ? error : new Error('Unexpected error'),
+        error:
+          error instanceof DomainBaseException
+            ? error
+            : new UnexpectedFactoryException(),
       };
 
       return failureOutput;

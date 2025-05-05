@@ -20,9 +20,9 @@ export const UserProviders: Provider[] = [
   { provide: CreateUserUseCase, useClass: CreateUserService },
   { provide: UserPersistencePort, useClass: UserPersistenceAdapter },
   { provide: FindUserByEmailUseCase, useClass: FindUserByEmailService },
-  { provide: 'UserFactory', useClass: UserFactory },
-  { provide: 'PasswordHasher', useClass: BcryptPasswordHasherService },
+  { provide: 'PasswordHasherPort', useClass: BcryptPasswordHasherService },
   { provide: 'UserMapper', useClass: UserMapper },
+  { provide: 'UserFactory', useClass: UserFactory },
 ];
 
 @Module({
