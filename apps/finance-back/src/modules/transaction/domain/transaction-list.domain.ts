@@ -12,6 +12,10 @@ export class TransactionList implements Iterable<Transaction> {
     return this._transactions[Symbol.iterator]();
   }
 
+  addTransaction(transaction: Transaction): void {
+    this._transactions.push(transaction);
+  }
+
   getAllTransactions(): Transaction[] {
     return this._transactions;
   }
