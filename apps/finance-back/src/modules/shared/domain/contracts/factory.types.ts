@@ -42,8 +42,8 @@ export interface FactoryInterface<T, I> {
   /**
    * Creates an instance of type T using the provided input.
    *
-   * @param {I} createInput - The input data required to create the result.
+   * @param {I} createAttributes - The attributes required to create the T object.
    * @returns {FactoryOutputType<T>} The result of the factory operation, either success or failure.
    */
-  create(createInput: I): FactoryOutputType<T>;
+  create(createAttributes: I): FactoryOutputType<T>;
 }

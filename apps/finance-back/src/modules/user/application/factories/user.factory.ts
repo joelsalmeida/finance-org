@@ -13,7 +13,7 @@ import {
 } from '../../../shared/domain/contracts/factory.types';
 import { User } from '../../domain/user.domain';
 import {
-  CreateUserInputType,
+  CreateUserAttributes,
   UserFactoryInterface,
 } from './user.factory.types';
 
@@ -24,9 +24,9 @@ export class UserFactory implements UserFactoryInterface {
     private readonly passwordHasher: PasswordHasherPort
   ) {}
 
-  create(createUserInput: CreateUserInputType): FactoryOutputType<User> {
+  create(createUserAttributes: CreateUserAttributes): FactoryOutputType<User> {
     try {
-      const { rawEmail, rawPassword } = createUserInput;
+      const { rawEmail, rawPassword } = createUserAttributes;
 
       const userId = UserId.create();
       const email = new Email(rawEmail);

@@ -2,7 +2,7 @@ import { Email, HashedPassword, Password } from '../../../../value-objects';
 import { PasswordHasherPort } from '../../../auth/ports/out';
 import { User } from '../../domain/user.domain';
 import { UserFactory } from './user.factory';
-import { CreateUserInputType } from './user.factory.types';
+import { CreateUserAttributes } from './user.factory.types';
 
 const VALID_EMAIL = 'valid@email.com';
 const VALID_PASSWORD = 'Secure#123';
@@ -30,12 +30,12 @@ describe('UserFactory', () => {
   });
 
   it('should create a new user successfully', () => {
-    const createUserInput: CreateUserInputType = {
+    const createUserAttributes: CreateUserAttributes = {
       rawEmail: VALID_EMAIL,
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.create(createUserInput);
+    const result = userFactory.create(createUserAttributes);
 
     if (result.success === true) {
       expect(result.data).toBeInstanceOf(User);
@@ -51,12 +51,12 @@ describe('UserFactory', () => {
   });
 
   it('should return an error if the email is invalid', () => {
-    const createUserInput: CreateUserInputType = {
+    const createUserAttributes: CreateUserAttributes = {
       rawEmail: INVALID_EMAIL,
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.create(createUserInput);
+    const result = userFactory.create(createUserAttributes);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
@@ -67,12 +67,12 @@ describe('UserFactory', () => {
   });
 
   it('should return an error if the password is invalid', () => {
-    const createUserInput: CreateUserInputType = {
+    const createUserAttributes: CreateUserAttributes = {
       rawEmail: VALID_EMAIL,
       rawPassword: SHORT_PASSWORD,
     };
 
-    const result = userFactory.create(createUserInput);
+    const result = userFactory.create(createUserAttributes);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
@@ -87,12 +87,12 @@ describe('UserFactory', () => {
       throw new Error('Unexpected error');
     });
 
-    const createUserInput: CreateUserInputType = {
+    const createUserAttributes: CreateUserAttributes = {
       rawEmail: VALID_EMAIL,
       rawPassword: VALID_PASSWORD,
     };
 
-    const result = userFactory.create(createUserInput);
+    const result = userFactory.create(createUserAttributes);
 
     if ('error' in result) {
       expect(result.error).toBeInstanceOf(Error);
