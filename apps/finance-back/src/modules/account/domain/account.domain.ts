@@ -23,6 +23,20 @@ export class Account {
     this._balance = balance;
   }
 
+  static create(accountAttributes: AccountAttributes): Account {
+    return new Account(accountAttributes);
+  }
+
+  deposit(amount: Money): Money {
+    this._balance.add(amount);
+    return this._balance;
+  }
+
+  withdraw(amount: Money): Money {
+    this._balance.subtract(amount);
+    return this._balance;
+  }
+
   get accountNumber(): AccountNumber {
     return this._accountNumber;
   }
@@ -33,9 +47,5 @@ export class Account {
 
   get balance(): Money {
     return this._balance;
-  }
-
-  static create(accountAttributes: AccountAttributes): Account {
-    return new Account(accountAttributes);
   }
 }
