@@ -2,29 +2,39 @@ import { Category, Money } from '../../../value-objects';
 
 export type BudgetAttributes = {
   category: Category;
-  maxSpentAmount: Money;
+  limit: Money;
 };
 
 export class Budget {
   private readonly _category: Category;
-  private readonly _maxSpentAmount: Money;
+  private readonly _limit: Money;
+  private _spent: Money;
 
   private constructor(budgetAttributes: BudgetAttributes) {
-    const { category, maxSpentAmount } = budgetAttributes;
+    const { category, limit } = budgetAttributes;
 
     this._category = category;
-    this._maxSpentAmount = maxSpentAmount;
+    this._limit = limit;
   }
 
   static create(budgetAttributes: BudgetAttributes) {
     return new Budget(budgetAttributes);
   }
 
+  addSpend(amount: Money): Money {
+    const newSpentValue = this._spent.add(amount);
+    return newSpentValue;
+  }
+
   get category(): Category {
     return this._category;
   }
 
-  get maxSpentAmount(): Money {
-    return this._maxSpentAmount;
+  get limit(): Money {
+    return this._limit;
+  }
+
+  get spent(): Money {
+    return this._spent;
   }
 }
