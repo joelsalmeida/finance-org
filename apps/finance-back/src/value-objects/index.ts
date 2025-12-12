@@ -6,3 +6,4 @@ export { Money } from './money';
 export { Password } from './password';
 export { AccountNumber } from './unique-identifiers/account-number';
 export { TransactionId } from './unique-identifiers/transaction-id';
+export { UserId } from './unique-identifiers/user-id';
