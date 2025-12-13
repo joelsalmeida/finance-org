@@ -4,6 +4,8 @@ import { RouterModule } from '@nestjs/core';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { env } from 'process';
 import { Dialect } from 'sequelize';
+import { AccountModule } from '../modules/account/account.module';
+import { AccountEntity } from '../modules/account/infrastructure/persistence/account.entity';
 import { AuthModule } from '../modules/auth/auth.module';
 import { UserEntity } from '../modules/user/infrastructure/persistence';
 import { UserModule } from '../modules/user/user.module';
@@ -13,9 +15,11 @@ import { UserModule } from '../modules/user/user.module';
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UserModule,
+    AccountModule,
     RouterModule.register([
       { path: 'users', module: UserModule },
       { path: 'auth', module: AuthModule },
+      { path: 'accounts', module: AccountModule },
     ]),
     SequelizeModule.forRoot({
       dialect: env.DATABASE_DIALECT as Dialect,
@@ -24,7 +28,7 @@ import { UserModule } from '../modules/user/user.module';
       username: env.DATABASE_USERNAME,
       password: env.DATABASE_PASSWORD,
       database: env.DATABASE,
-      models: [UserEntity],
+      models: [UserEntity, AccountEntity],
       synchronize: true,
     }),
   ],

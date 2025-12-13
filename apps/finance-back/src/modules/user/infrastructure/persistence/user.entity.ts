@@ -1,5 +1,6 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
+import { AccountEntity } from '../../../account/infrastructure/persistence';
 
 @Table({
   tableName: 'users',
@@ -20,17 +21,6 @@ export class UserEntity extends Model<UserEntity> {
   @Column
   password: string;
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-    defaultValue: DataType.NOW,
-  })
-  createdAt: Date;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-    defaultValue: DataType.NOW,
-  })
-  updatedAt: Date;
+  @HasMany(() => AccountEntity)
+  accounts: AccountEntity[];
 }
