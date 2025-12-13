@@ -15,6 +15,10 @@ export class AccountPersistenceAdapter implements AccountPersistencePort {
     await accountEntity.save();
   }
 
+  findAccountByAccountNumber(accountNumber: string): Promise<Account> {
+    throw new Error('Method not implemented.');
+  }
+
   async findAccountByOwnerId(ownerId: string): Promise<Account> {
     const accountEntity = await AccountEntity.findOne({ where: { ownerId } });
 
