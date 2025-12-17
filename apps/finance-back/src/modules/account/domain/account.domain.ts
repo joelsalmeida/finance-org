@@ -3,6 +3,7 @@ import {
   AccountNumber,
   UserId,
 } from '../../../value-objects/unique-identifiers';
+import { InsufficientFundsException } from '../exceptions';
 
 export type AccountAttributes = {
   accountNumber: AccountNumber;
@@ -13,7 +14,7 @@ export type AccountAttributes = {
 export class Account {
   private readonly _accountNumber: AccountNumber;
   private readonly _ownerId: UserId;
-  private readonly _balance: Money;
+  private _balance: Money;
 
   private constructor(accountAttributes: AccountAttributes) {
     const { accountNumber, ownerId, balance } = accountAttributes;
@@ -28,12 +29,18 @@ export class Account {
   }
 
   deposit(amount: Money): Money {
-    this._balance.add(amount);
+    this._balance = this._balance.add(amount);
     return this._balance;
   }
 
   withdraw(amount: Money): Money {
-    this._balance.subtract(amount);
+    const insufficientFunds = this._balance.toNumber() < amount.toNumber();
+
+    if (insufficientFunds) {
+      throw new InsufficientFundsException();
+    }
+
+    this._balance = this._balance.subtract(amount);
     return this._balance;
   }
 
