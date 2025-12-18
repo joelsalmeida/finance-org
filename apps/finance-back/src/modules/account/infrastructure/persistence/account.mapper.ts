@@ -24,4 +24,8 @@ export class AccountMapper {
 
     return accountDomain;
   }
+
+  mergeIntoEntity(account: Account, entity: AccountEntity) {
+    entity.balance = account.balance.toNumber();
+  }
 }
