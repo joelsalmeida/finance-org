@@ -13,7 +13,7 @@ export class FindAccountByOwnerIdService
   async findAccountByOwnerId(
     command: FindAccountByOwnerIdCommand
   ): Promise<Account> {
-    const accountFound = await this.accountPersistencePort.findAccountByOwnerId(
+    const accountFound = await this.accountPersistencePort.findByOwnerId(
       command.ownerId
     );
     return accountFound;
