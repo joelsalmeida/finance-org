@@ -15,6 +15,7 @@ import {
 import {
   AccountMapper,
   AccountPersistenceAdapter,
+  LockMapper,
 } from './infrastructure/persistence';
 import { AccountPersistencePort } from './ports/out/account-persistence.port';
 
@@ -26,6 +27,7 @@ export const AccountProviders: Provider[] = [
   },
   { provide: AccountPersistencePort, useClass: AccountPersistenceAdapter },
   { provide: 'AccountMapper', useClass: AccountMapper },
+  { provide: 'LockMapper', useClass: LockMapper },
   { provide: 'AccountFactory', useClass: AccountFactory },
 ];
 
@@ -34,4 +36,4 @@ export const AccountProviders: Provider[] = [
   controllers: [CreateAccountController, FindAccountByOwnerIdController],
   exports: [...AccountProviders],
 })
-export class AccountModule {}
+export class AccountModule { }
