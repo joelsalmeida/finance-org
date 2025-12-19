@@ -9,7 +9,7 @@ import {
   CreateUserUseCase,
   FindUserByEmailUseCase,
 } from './application/use-cases';
-import { CreateUserController, FindUserByEmailController } from './controllers';
+import { UsersController } from './controllers';
 import {
   UserMapper,
   UserPersistenceAdapter,
@@ -27,7 +27,7 @@ export const UserProviders: Provider[] = [
 
 @Module({
   providers: [...UserProviders],
-  controllers: [CreateUserController, FindUserByEmailController],
+  controllers: [UsersController],
   exports: [...UserProviders],
 })
 export class UserModule {}
