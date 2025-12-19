@@ -7,20 +7,16 @@ import { Dialect } from 'sequelize';
 import { AccountModule } from '../modules/account/account.module';
 import { AccountEntity } from '../modules/account/infrastructure/persistence/account.entity';
 import { AuthModule } from '../modules/auth/auth.module';
+import { SharedModule } from '../modules/shared/shared.module';
+import { TransactionEntity } from '../modules/transaction/infrastructure/persistence';
+import { TransactionModule } from '../modules/transaction/transaction.module';
+import { TransferModule } from '../modules/transfer/transfer.module';
 import { UserEntity } from '../modules/user/infrastructure/persistence';
 import { UserModule } from '../modules/user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    AuthModule,
-    UserModule,
-    AccountModule,
-    RouterModule.register([
-      { path: 'users', module: UserModule },
-      { path: 'auth', module: AuthModule },
-      { path: 'accounts', module: AccountModule },
-    ]),
     SequelizeModule.forRoot({
       dialect: env.DATABASE_DIALECT as Dialect,
       host: env.DATABASE_HOST,
@@ -28,9 +24,21 @@ import { UserModule } from '../modules/user/user.module';
       username: env.DATABASE_USERNAME,
       password: env.DATABASE_PASSWORD,
       database: env.DATABASE,
-      models: [UserEntity, AccountEntity],
+      models: [UserEntity, AccountEntity, TransactionEntity],
       synchronize: true,
     }),
+    SharedModule,
+    AuthModule,
+    UserModule,
+    AccountModule,
+    TransactionModule,
+    TransferModule,
+    RouterModule.register([
+      { path: 'users', module: UserModule },
+      { path: 'auth', module: AuthModule },
+      { path: 'accounts', module: AccountModule },
+      { path: 'transfers', module: TransferModule },
+    ]),
   ],
 })
-export class AppModule {}
+export class AppModule { }
