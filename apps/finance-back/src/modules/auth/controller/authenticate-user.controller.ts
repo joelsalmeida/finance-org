@@ -20,7 +20,7 @@ export class AuthenticateUserController {
   async authenticate(@Body() authenticateUserInput: AuthenticateUserInput) {
     const authenticateUserCommand = authenticateUserInput.toCommand();
 
-    const accessToken = await this.tokenService.generateAccessToken(
+    const accessToken = await this.tokenService.execute(
       authenticateUserCommand
     );
 

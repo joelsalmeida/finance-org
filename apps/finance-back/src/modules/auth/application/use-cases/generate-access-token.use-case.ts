@@ -1,7 +1,7 @@
 import { AuthenticateUserCommand } from '../commands';
 
 export abstract class GenerateAccessTokenUseCase {
-  abstract generateAccessToken(
+  abstract execute(
     command: AuthenticateUserCommand
   ): Promise<{ access_token: string }>;
 }

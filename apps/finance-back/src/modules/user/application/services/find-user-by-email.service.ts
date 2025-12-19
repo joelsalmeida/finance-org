@@ -8,10 +8,8 @@ import { FindUserByEmailUseCase } from '../use-cases';
 export class FindUserByEmailService implements FindUserByEmailUseCase {
   constructor(private userPersistencePort: UserPersistencePort) {}
 
-  async findUserByEmail(
-    findUserByEmailCommand: FindUserByEmailCommand
-  ): Promise<User> {
-    const userFound = await this.userPersistencePort.findUserByEmail(
+  async execute(findUserByEmailCommand: FindUserByEmailCommand): Promise<User> {
+    const userFound = await this.userPersistencePort.findByEmail(
       findUserByEmailCommand.email
     );
     return userFound;

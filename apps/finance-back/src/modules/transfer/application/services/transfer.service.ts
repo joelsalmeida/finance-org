@@ -37,7 +37,7 @@ export class TransferService implements TransferUseCase {
     private transactionFactory: TransactionFactoryInterface
   ) {}
 
-  async transfer(command: TransferCommand): Promise<Transaction> {
+  async execute(command: TransferCommand): Promise<Transaction> {
     const { sourceAccountNumber, destinationAccountNumber, amount, category } =
       command;
 

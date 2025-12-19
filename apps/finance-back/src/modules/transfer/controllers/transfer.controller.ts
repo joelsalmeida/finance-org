@@ -13,12 +13,12 @@ import { TransferInput } from './dto';
 // TODO: Add exception filter
 @Controller()
 export class TransferController {
-  constructor(private transferUseCase: TransferUseCase) { }
+  constructor(private transferUseCase: TransferUseCase) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   async transfer(@Body() transferInput: TransferInput): Promise<Transaction> {
     const transferCommand: TransferCommand = transferInput.toCommand();
-    return this.transferUseCase.transfer(transferCommand)
+    return this.transferUseCase.execute(transferCommand);
   }
 }

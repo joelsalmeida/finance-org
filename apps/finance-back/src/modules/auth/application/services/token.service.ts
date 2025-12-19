@@ -12,10 +12,10 @@ export class TokenService implements GenerateAccessTokenUseCase {
     private tokenGenerator: TokenGeneratorPort
   ) {}
 
-  async generateAccessToken(
+  async execute(
     command: AuthenticateUserCommand
   ): Promise<{ access_token: string }> {
-    const userFound = await this.findUserByEmailService.findUserByEmail(
+    const userFound = await this.findUserByEmailService.execute(
       new FindUserByEmailCommand(command.email)
     );
 

@@ -14,8 +14,8 @@ export class AuthenticateUserService implements AuthenticateUserUseCase {
     private passwordHasher: PasswordHasherPort
   ) {}
 
-  async authenticateUser(command: AuthenticateUserCommand): Promise<User> {
-    const userFound = await this.findUserByEmailService.findUserByEmail(
+  async execute(command: AuthenticateUserCommand): Promise<User> {
+    const userFound = await this.findUserByEmailService.execute(
       new FindUserByEmailCommand(command.email)
     );
 

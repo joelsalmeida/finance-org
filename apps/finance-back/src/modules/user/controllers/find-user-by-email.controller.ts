@@ -21,6 +21,6 @@ export class FindUserByEmailController {
   ): Promise<User> {
     const findUserByEmailCommand: FindUserByEmailCommand =
       findUserByEmailInput.toCommand();
-    return this.findUserByEmailUseCase.findUserByEmail(findUserByEmailCommand);
+    return this.findUserByEmailUseCase.execute(findUserByEmailCommand);
   }
 }

@@ -17,6 +17,6 @@ export class CreateUserController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async createUser(@Body() userInput: CreateUserInput): Promise<void> {
     const createUserCommand: CreateUserCommand = userInput.toCommand();
-    return this.createUserUseCase.save(createUserCommand);
+    return this.createUserUseCase.execute(createUserCommand);
   }
 }

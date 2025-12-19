@@ -10,7 +10,7 @@ export class UserPersistenceAdapter implements UserPersistencePort {
     private readonly userMapper: UserMapper
   ) {}
 
-  async findUserByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     const userEntity = await UserEntity.findOne({ where: { email } });
 
     if (!userEntity) {

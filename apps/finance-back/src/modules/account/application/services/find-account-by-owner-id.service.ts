@@ -10,9 +10,7 @@ export class FindAccountByOwnerIdService
 {
   constructor(private accountPersistencePort: AccountPersistencePort) {}
 
-  async findAccountByOwnerId(
-    command: FindAccountByOwnerIdCommand
-  ): Promise<Account> {
+  async execute(command: FindAccountByOwnerIdCommand): Promise<Account> {
     const accountFound = await this.accountPersistencePort.findByOwnerId(
       command.ownerId
     );

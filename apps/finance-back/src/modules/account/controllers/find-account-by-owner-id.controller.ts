@@ -18,12 +18,12 @@ export class FindAccountByOwnerIdController {
 
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async findAccountByOwnerId(
+  async find(
     @Query() accountInput: FindAccountByOwnerIdInput
   ): Promise<Account> {
     const findAccountByOwnerIdCommand: FindAccountByOwnerIdCommand =
       accountInput.toCommand();
-    return this.findAccountByOwnerIdUseCase.findAccountByOwnerId(
+    return this.findAccountByOwnerIdUseCase.execute(
       findAccountByOwnerIdCommand
     );
   }

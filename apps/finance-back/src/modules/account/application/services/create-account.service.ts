@@ -12,7 +12,7 @@ export class CreateAccountService implements CreateAccountUseCase {
     @Inject('AccountFactory') private accountFactory: AccountFactoryInterface
   ) {}
 
-  async save(command: CreateAccountCommand): Promise<void> {
+  async execute(command: CreateAccountCommand): Promise<void> {
     const accountCreationResult = this.accountFactory.create(command);
 
     // TODO: Define a custom domain error

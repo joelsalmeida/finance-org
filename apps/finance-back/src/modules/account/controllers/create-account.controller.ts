@@ -15,8 +15,8 @@ export class CreateAccountController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async createAccount(@Body() accountInput: CreateAccountInput): Promise<void> {
+  async create(@Body() accountInput: CreateAccountInput): Promise<void> {
     const createAccountCommand: CreateAccountCommand = accountInput.toCommand();
-    return this.createAccountUseCase.save(createAccountCommand);
+    return this.createAccountUseCase.execute(createAccountCommand);
   }
 }
