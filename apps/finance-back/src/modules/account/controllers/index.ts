@@ -1,2 +1,1 @@
-export { CreateAccountController } from './create-account.controller';
-export { FindAccountByOwnerIdController } from './find-account-by-owner-id.controller';
+export { AccountsController } from './accounts.controller';

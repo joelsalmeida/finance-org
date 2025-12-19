@@ -8,10 +8,7 @@ import {
   CreateAccountUseCase,
   FindAccountByOwnerIdUseCase,
 } from './application/use-cases';
-import {
-  CreateAccountController,
-  FindAccountByOwnerIdController,
-} from './controllers';
+import { AccountsController } from './controllers';
 import {
   AccountMapper,
   AccountPersistenceAdapter,
@@ -33,7 +30,7 @@ export const AccountProviders: Provider[] = [
 
 @Module({
   providers: [...AccountProviders],
-  controllers: [CreateAccountController, FindAccountByOwnerIdController],
+  controllers: [AccountsController],
   exports: [...AccountProviders],
 })
-export class AccountModule { }
+export class AccountModule {}
