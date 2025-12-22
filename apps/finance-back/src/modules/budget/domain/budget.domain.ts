@@ -22,8 +22,8 @@ export class Budget {
   }
 
   addSpend(amount: Money): Money {
-    const newSpentValue = this._spent.add(amount);
-    return newSpentValue;
+    this._spent = this._spent.add(amount);
+    return this._spent;
   }
 
   get category(): Category {

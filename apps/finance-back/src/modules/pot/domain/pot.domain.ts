@@ -30,13 +30,13 @@ export class Pot {
   }
 
   allocate(amount: Money): Money {
-    const newAllocatedValue = this._allocated.add(amount);
-    return newAllocatedValue;
+    this._allocated = this._allocated.add(amount);
+    return this._allocated;
   }
 
   deallocate(amount: Money): Money {
-    const newAllocatedValue = this._allocated.subtract(amount);
-    return newAllocatedValue;
+    this._allocated = this._allocated.subtract(amount);
+    return this._allocated;
   }
 
   get id(): PotId {
