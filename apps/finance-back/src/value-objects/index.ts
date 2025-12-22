@@ -5,5 +5,6 @@ export { HashedPassword } from './hashed-password';
 export { Money } from './money';
 export { Password } from './password';
 export { AccountNumber } from './unique-identifiers/account-number';
+export { BudgetId } from './unique-identifiers/budget-id';
 export { TransactionId } from './unique-identifiers/transaction-id';
 export { UserId } from './unique-identifiers/user-id';
