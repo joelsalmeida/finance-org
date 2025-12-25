@@ -28,6 +28,10 @@ export class Account {
     return new Account(accountAttributes);
   }
 
+  static restore(accountAttributes: AccountAttributes): Account {
+    return new Account(accountAttributes);
+  }
+
   deposit(amount: Money): Money {
     this._balance = this._balance.add(amount);
     return this._balance;

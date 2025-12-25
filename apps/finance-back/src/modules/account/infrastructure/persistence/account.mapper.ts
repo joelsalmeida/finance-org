@@ -16,7 +16,7 @@ export class AccountMapper {
   }
 
   toDomain(accountEntity: AccountEntity): Account {
-    const accountDomain = Account.create({
+    const accountDomain = Account.restore({
       accountNumber: AccountNumber.fromString(accountEntity.accountNumber),
       ownerId: UserId.fromString(accountEntity.ownerId),
       balance: Money.fromCents(accountEntity.balance),
