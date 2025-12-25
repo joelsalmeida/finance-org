@@ -5,6 +5,6 @@ export class InsufficientFundsException extends DomainBaseException {
   readonly code = ACCOUNT_INSUFFICIENT_FUNDS;
 
   constructor() {
-    super('Invalid account number format');
+    super('Insufficient funds');
   }
 }
