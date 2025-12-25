@@ -1,9 +1,11 @@
 import { Category } from '../../../value-objects/category';
 import { Money } from '../../../value-objects/money';
+
 import {
   AccountNumber,
   TransactionId,
 } from '../../../value-objects/unique-identifiers';
+
 import {
   TransactionToTheSameAccountException,
   TransactionWithInvalidAmountException,
@@ -36,13 +38,6 @@ export class Transaction {
       date,
     } = transactionAttributes;
 
-    this.validateSourceAndDestination(
-      sourceAccountNumber,
-      destinationAccountNumber
-    );
-
-    this.validateAmount(amount);
-
     this._id = id;
     this._sourceAccountNumber = sourceAccountNumber;
     this._destinationAccountNumber = destinationAccountNumber;
@@ -51,7 +46,7 @@ export class Transaction {
     this._date = date;
   }
 
-  private validateSourceAndDestination(
+  private static validateSourceAndDestination(
     sourceAccountNumber: AccountNumber,
     destinationAccountNumber: AccountNumber
   ) {
@@ -60,7 +55,7 @@ export class Transaction {
     }
   }
 
-  private validateAmount(amount: Money) {
+  private static validateAmount(amount: Money) {
     if (amount.isZero()) {
       throw new TransactionWithInvalidAmountException();
     }
@@ -78,6 +73,13 @@ export class Transaction {
       date,
     } = transactionAttributes;
 
+    this.validateSourceAndDestination(
+      sourceAccountNumber,
+      destinationAccountNumber
+    );
+
+    this.validateAmount(amount);
+
     return new Transaction({
       id,
       sourceAccountNumber,
@@ -86,6 +88,10 @@ export class Transaction {
       category,
       date,
     });
+  }
+
+  static restore(transactionAttributes: TransactionAttributes): Transaction {
+    return new Transaction(transactionAttributes);
   }
 
   get id(): TransactionId {
