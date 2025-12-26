@@ -31,9 +31,13 @@ export class BudgetPersistenceAdapter implements BudgetPersistencePort {
     await budgetEntityFound.save({ ...this.buildQueryOptions(options) });
   }
 
-  async findByAccountNumber(accountNumber: string): Promise<Budget[]> {
+  async findByAccountNumber(
+    accountNumber: string,
+    options?: UowOptions
+  ): Promise<Budget[]> {
     const budgetEntities = await BudgetEntity.findAll({
       where: { accountNumber },
+      ...this.buildQueryOptions(options),
     });
 
     const budgets = budgetEntities.map((budget) => {
@@ -42,7 +46,7 @@ export class BudgetPersistenceAdapter implements BudgetPersistencePort {
 
     return budgets;
   }
-
+  // TODO: DRY is crying desperately :(
   private buildQueryOptions(options?: UowOptions) {
     const transaction = options?.transactionContext as SequelizeTransaction;
     const lock = this.lockMapper.map(options?.lockMode);
