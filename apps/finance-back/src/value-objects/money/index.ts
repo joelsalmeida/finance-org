@@ -22,14 +22,6 @@ export class Money {
     this.amountInCents = amountInCents;
   }
 
-  static fromCents(amountInCents: number): Money {
-    return new Money(amountInCents);
-  }
-
-  isZero(): boolean {
-    return this.amountInCents === 0;
-  }
-
   add(other: Money): Money {
     const amountSumInCents = this.amountInCents + other.toNumber();
     return new Money(amountSumInCents);
@@ -44,11 +36,27 @@ export class Money {
     return new Money(amountDifferenceInCents);
   }
 
-  toBRL(): string {
-    return `R$${(this.amountInCents / 100).toFixed(2)}`;
+  static fromCents(amountInCents: number): Money {
+    return new Money(amountInCents);
   }
 
   toNumber(): number {
     return this.amountInCents;
+  }
+
+  toBRL(): string {
+    return `R$${(this.amountInCents / 100).toFixed(2)}`;
+  }
+
+  isZero(): boolean {
+    return this.amountInCents === 0;
+  }
+
+  isLessThan(amount: Money) {
+    return this.amountInCents < amount.amountInCents;
+  }
+
+  isGreaterThan(amount: Money) {
+    return this.amountInCents > amount.amountInCents;
   }
 }
