@@ -11,6 +11,7 @@ export class AccountMapper {
     accountEntity.accountNumber = account.accountNumber.toString();
     accountEntity.ownerId = account.ownerId.toValue();
     accountEntity.balance = account.balance.toNumber();
+    accountEntity.reservedAmount = account.reservedAmount.toNumber();
 
     return accountEntity;
   }
@@ -20,6 +21,7 @@ export class AccountMapper {
       accountNumber: AccountNumber.fromString(accountEntity.accountNumber),
       ownerId: UserId.fromString(accountEntity.ownerId),
       balance: Money.fromCents(accountEntity.balance),
+      reservedAmount: Money.fromCents(accountEntity.reservedAmount),
     });
 
     return accountDomain;
@@ -27,5 +29,6 @@ export class AccountMapper {
 
   mergeIntoEntity(account: Account, entity: AccountEntity) {
     entity.balance = account.balance.toNumber();
+    entity.reservedAmount = account.reservedAmount.toNumber();
   }
 }

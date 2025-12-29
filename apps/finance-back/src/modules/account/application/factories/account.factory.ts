@@ -24,11 +24,13 @@ export class AccountFactory implements AccountFactoryInterface {
       const { ownerId } = createAccountAttributes;
       const accountNumber = AccountNumber.create();
       const balance = Money.fromCents(0);
+      const reservedAmount = Money.fromCents(0);
 
       const accountProps: AccountAttributes = {
         accountNumber,
         ownerId: UserId.fromString(ownerId),
         balance,
+        reservedAmount,
       };
 
       const successOutput: FactorySuccessOutputType<Account> = {

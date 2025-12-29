@@ -37,4 +37,11 @@ export class AccountEntity extends Model<AccountEntity> {
     defaultValue: 0,
   })
   balance: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  })
+  reservedAmount: number;
 }
