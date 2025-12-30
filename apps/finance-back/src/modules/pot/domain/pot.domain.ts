@@ -1,32 +1,51 @@
 import { AccountNumber, Money } from '../../../value-objects';
 import { PotId } from '../../../value-objects/unique-identifiers';
 
-export type PotAttributes = {
-  sourceAccountNumber: AccountNumber;
+export type PotCreationAttributes = {
+  accountNumber: AccountNumber;
   name: string;
   goalAmount: Money;
 };
 
+export type PotAttributes = {
+  id: PotId;
+  accountNumber: AccountNumber;
+  name: string;
+  goalAmount: Money;
+  allocated: Money;
+};
+
 export class Pot {
   private readonly _id: PotId;
-  private readonly _sourceAccountNumber: AccountNumber;
+  private readonly _accountNumber: AccountNumber;
   private _name: string;
   private _goalAmount: Money;
   private _allocated: Money;
 
   private constructor(potAttributes: PotAttributes) {
-    const { sourceAccountNumber, name, goalAmount } = potAttributes;
+    const { id, accountNumber, name, goalAmount, allocated } = potAttributes;
 
-    this._id = PotId.create();
-    this._sourceAccountNumber = sourceAccountNumber;
+    this._id = id;
+    this._accountNumber = accountNumber;
     this._name = name;
     this._goalAmount = goalAmount;
-    this._allocated = Money.fromCents(0);
+    this._allocated = allocated;
   }
 
-  static create(potAttributes: PotAttributes): Pot {
-    const { sourceAccountNumber, name, goalAmount } = potAttributes;
-    return new Pot({ sourceAccountNumber, name, goalAmount });
+  static create(potAttributes: PotCreationAttributes): Pot {
+    const { accountNumber, name, goalAmount } = potAttributes;
+
+    return new Pot({
+      id: PotId.create(),
+      accountNumber,
+      name,
+      goalAmount,
+      allocated: Money.fromCents(0),
+    });
+  }
+
+  static restore(potAttributes: PotAttributes): Pot {
+    return new Pot(potAttributes);
   }
 
   allocate(amount: Money): Money {
@@ -43,8 +62,8 @@ export class Pot {
     return this._id;
   }
 
-  get sourceAccountNumber(): AccountNumber {
-    return this._sourceAccountNumber;
+  get accountNumber(): AccountNumber {
+    return this._accountNumber;
   }
 
   get name(): string {
@@ -55,7 +74,7 @@ export class Pot {
     return this._goalAmount;
   }
 
-  get savedAmount(): Money {
+  get allocated(): Money {
     return this._allocated;
   }
 }
