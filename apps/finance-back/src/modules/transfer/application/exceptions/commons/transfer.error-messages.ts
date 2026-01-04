@@ -1,9 +1,9 @@
-import { TRANSFER_ERROR_CODES } from './transfer.error-codes';
+import {
+  TRANSFER_ERROR_CODES,
+  TransferErrorCode,
+} from './transfer.error-codes';
 
-type TransferErrorMessages = Record<
-  (typeof TRANSFER_ERROR_CODES)[keyof typeof TRANSFER_ERROR_CODES],
-  string
->;
+type TransferErrorMessages = Record<TransferErrorCode, string>;
 
 export const TRANSFER_ERROR_MESSAGES: TransferErrorMessages = {
   [TRANSFER_ERROR_CODES.SOURCE_ACCOUNT_NOT_FOUND]:
