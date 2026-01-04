@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
-import { TransferCommand } from '../../application/commands';
+import { TransferCommand } from '../../../../application/commands';
 
 export class TransferInput {
   @Expose()
@@ -25,6 +25,11 @@ export class TransferInput {
   readonly amount: number;
 
   toCommand(): TransferCommand {
-    return new TransferCommand(this.sourceAccountNumber, this.destinationAccountNumber, this.category, this.amount);
+    return new TransferCommand(
+      this.sourceAccountNumber,
+      this.destinationAccountNumber,
+      this.category,
+      this.amount
+    );
   }
 }

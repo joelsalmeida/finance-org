@@ -6,11 +6,11 @@ import { SharedModule } from '../shared/shared.module';
 import { TransactionModule } from '../transaction/transaction.module';
 import { TransferService } from './application/services';
 import { TransferUseCase } from './application/use-cases';
-import { TransferController } from './controllers/transfer.controller';
+import { TransferController } from './infrastructure/http/controllers';
 
 export const TransferProviders: Provider[] = [
   { provide: TransferUseCase, useClass: TransferService },
-  { provide: UnitOfWorkPort, useClass: SequelizeUnitOfWork }
+  { provide: UnitOfWorkPort, useClass: SequelizeUnitOfWork },
 ];
 
 @Module({
@@ -19,4 +19,4 @@ export const TransferProviders: Provider[] = [
   controllers: [TransferController],
   exports: [...TransferProviders],
 })
-export class TransferModule { }
+export class TransferModule {}
