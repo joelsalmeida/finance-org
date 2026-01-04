@@ -1,15 +1,9 @@
-import {
-  MessageResolver,
-  TRANSFER_ERROR_CODES,
-  TransferException,
-} from './commons';
+import { TRANSFER_ERROR_CODES, TransferException } from './commons';
 
-const CODE = TRANSFER_ERROR_CODES.SOURCE_ACCOUNT_NOT_FOUND;
+const SOURCE_ACCOUNT_NOT_FOUND = TRANSFER_ERROR_CODES.SOURCE_ACCOUNT_NOT_FOUND;
 
 export class SourceAccountNotFoundException extends TransferException {
-  code = CODE;
-
   constructor(readonly _accountNumber: string) {
-    super(MessageResolver.resolve(CODE));
+    super(SOURCE_ACCOUNT_NOT_FOUND);
   }
 }
