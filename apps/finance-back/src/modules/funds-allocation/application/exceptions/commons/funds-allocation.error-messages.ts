@@ -1,9 +1,9 @@
-import { FUNDS_ALLOCATION_ERROR_CODES } from './funds-allocation.error-codes';
+import {
+  FUNDS_ALLOCATION_ERROR_CODES,
+  FundsAllocationErrorCode,
+} from './funds-allocation.error-codes';
 
-type FundsAllocationErrorMessages = Record<
-  (typeof FUNDS_ALLOCATION_ERROR_CODES)[keyof typeof FUNDS_ALLOCATION_ERROR_CODES],
-  string
->;
+type FundsAllocationErrorMessages = Record<FundsAllocationErrorCode, string>;
 
 export const FUNDS_ALLOCATION_ERROR_MESSAGES: FundsAllocationErrorMessages = {
   [FUNDS_ALLOCATION_ERROR_CODES.POT_ACCOUNT_MISMATCH]:
