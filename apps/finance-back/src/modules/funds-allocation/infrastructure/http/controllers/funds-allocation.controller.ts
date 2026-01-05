@@ -1,14 +1,15 @@
-import { Body, Controller, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Param, Patch, UseFilters } from '@nestjs/common';
 import {
   AllocateFundsToPotCommand,
   DeallocateFundsFromPotCommand,
   RemovePotCommand,
-} from '../application/commands';
+} from '../../../application/commands';
 import {
   AllocateFundsToPotUseCase,
   DeallocateFundsFromPotUseCase,
   RemovePotUseCase,
-} from '../application/usecases';
+} from '../../../application/usecases';
+import { FundsAllocationExceptionFilter } from '../filters';
 import {
   AllocateFundsToPotInput,
   DeallocateFundsFromPotInput,
@@ -16,6 +17,7 @@ import {
 } from './dtos';
 
 @Controller()
+@UseFilters(FundsAllocationExceptionFilter)
 export class FundsAllocationController {
   constructor(
     private allocateFundsToPot: AllocateFundsToPotUseCase,

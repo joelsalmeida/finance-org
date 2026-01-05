@@ -26,7 +26,7 @@ import {
   DeallocateFundsFromPotUseCase,
   RemovePotUseCase,
 } from './application/usecases';
-import { FundsAllocationController } from './controllers/funds-allocation.controller';
+import { FundsAllocationController } from './infrastructure/http/controllers';
 
 export const FundsAllocationProviders: Provider[] = [
   { provide: UnitOfWorkPort, useClass: SequelizeUnitOfWork },
