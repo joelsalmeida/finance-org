@@ -10,6 +10,9 @@ import { AccountEntity } from '../modules/account/infrastructure/persistence/acc
 import { AuthModule } from '../modules/auth/auth.module';
 import { BudgetModule } from '../modules/budget/budget.module';
 import { BudgetEntity } from '../modules/budget/infrastructure/persistence';
+import { FundsAllocationModule } from '../modules/funds-allocation/funds-allocation.module';
+import { PotEntity } from '../modules/pot/infrastructure/persistence';
+import { PotModule } from '../modules/pot/pot.module';
 import { SharedModule } from '../modules/shared/shared.module';
 import { TransactionEntity } from '../modules/transaction/infrastructure/persistence';
 import { TransactionModule } from '../modules/transaction/transaction.module';
@@ -27,7 +30,13 @@ import { UserModule } from '../modules/user/user.module';
       username: env.DATABASE_USERNAME,
       password: env.DATABASE_PASSWORD,
       database: env.DATABASE,
-      models: [UserEntity, AccountEntity, TransactionEntity, BudgetEntity],
+      models: [
+        UserEntity,
+        AccountEntity,
+        TransactionEntity,
+        BudgetEntity,
+        PotEntity,
+      ],
       synchronize: true,
     }),
     EventEmitterModule.forRoot(),
@@ -38,12 +47,16 @@ import { UserModule } from '../modules/user/user.module';
     TransactionModule,
     TransferModule,
     BudgetModule,
+    PotModule,
+    FundsAllocationModule,
     RouterModule.register([
       { path: 'users', module: UserModule },
       { path: 'auth', module: AuthModule },
       { path: 'accounts', module: AccountModule },
       { path: 'transfers', module: TransferModule },
       { path: 'budgets', module: BudgetModule },
+      { path: 'pots', module: PotModule },
+      { path: 'funds-allocation', module: FundsAllocationModule },
     ]),
   ],
 })
