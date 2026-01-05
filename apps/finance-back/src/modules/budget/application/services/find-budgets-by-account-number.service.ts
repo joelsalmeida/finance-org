@@ -5,7 +5,7 @@ import { FindBudgetsByAccountNumberCommand } from '../commands';
 import { FindBudgetsByAccountNumberUseCase } from '../usecases';
 
 @Injectable()
-export class FindBudgetByEmailService
+export class FindBudgetByAccountService
   implements FindBudgetsByAccountNumberUseCase
 {
   constructor(private budgetPersistencePort: BudgetPersistencePort) {}

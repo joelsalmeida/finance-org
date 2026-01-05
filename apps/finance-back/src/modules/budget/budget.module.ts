@@ -11,7 +11,7 @@ import { UnitOfWorkPort } from '../shared/application/ports/out';
 import { SequelizeUnitOfWork } from '../shared/infrastructure/persistence/uow';
 import { SharedModule } from '../shared/shared.module';
 import { TransactionCreatedHandler } from './application/event-handlers';
-import { FindBudgetByEmailService } from './application/services';
+import { FindBudgetByAccountService } from './application/services';
 import { CreateBudgetService } from './application/services/save-budget.service';
 import {
   CreateBudgetUseCase,
@@ -25,7 +25,7 @@ export const BudgetProviders: Provider[] = [
   { provide: CreateBudgetUseCase, useClass: CreateBudgetService },
   {
     provide: FindBudgetsByAccountNumberUseCase,
-    useClass: FindBudgetByEmailService,
+    useClass: FindBudgetByAccountService,
   },
   { provide: BudgetPersistencePort, useClass: BudgetPersistenceAdapter },
   { provide: 'BudgetFactory', useClass: BudgetFactory },
