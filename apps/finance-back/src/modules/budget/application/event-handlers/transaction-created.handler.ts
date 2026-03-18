@@ -25,29 +25,17 @@ export class TransactionCreatedHandler {
         lockMode: LOCK_MODE.WRITE,
       };
 
-      const budget = await this.getEventBudget(event, WRITE_OPTIONS);
+      const budget =
+        await this.budgetPersistencePort.findByAccountNumberAndCategory(
+          event.sourceAccountNumber.toString(),
+          event.category.toString(),
+          options
+        );
+
       if (!budget) return;
 
       budget.addSpend(event.amount);
       await this.budgetPersistencePort.save(budget, WRITE_OPTIONS);
     });
-  }
-
-  private async getEventBudget(
-    event: TransactionCreatedEvent,
-    options: UowOptions
-  ) {
-    // TODO: Search only for the specific budget
-    // to avoid budget lock-ins that are not related
-    const accountBudgets = await this.budgetPersistencePort.findByAccountNumber(
-      event.sourceAccountNumber.toString(),
-      options
-    );
-
-    const eventBudget = accountBudgets.find((budget) =>
-      event.category.equals(budget.category)
-    );
-
-    return eventBudget;
   }
 }

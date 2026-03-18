@@ -15,6 +15,8 @@ export class BudgetPersistenceAdapter implements BudgetPersistencePort {
     private readonly lockMapper: LockMapper
   ) {}
 
+  // TODO: Perhaps this wasn't the best solution.
+  // An explicit update avoids unnecessary queries.
   async save(budget: Budget, options?: UowOptions): Promise<void> {
     const budgetEntityFound: BudgetEntity = await BudgetEntity.findOne({
       where: { id: budget.id.toString() },
@@ -46,6 +48,22 @@ export class BudgetPersistenceAdapter implements BudgetPersistencePort {
 
     return budgets;
   }
+
+  async findByAccountNumberAndCategory(
+    accountNumber: string,
+    category: string,
+    options?: UowOptions
+  ): Promise<Budget | null> {
+    const budgetEntity = await BudgetEntity.findOne({
+      where: { accountNumber, category },
+      ...this.buildQueryOptions(options),
+    });
+
+    if (!budgetEntity) return null;
+
+    return this.budgetMapper.toDomain(budgetEntity);
+  }
+
   // TODO: DRY is crying desperately :(
   private buildQueryOptions(options?: UowOptions) {
     const transaction = options?.transactionContext as SequelizeTransaction;

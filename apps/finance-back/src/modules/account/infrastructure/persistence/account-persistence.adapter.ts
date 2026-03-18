@@ -42,11 +42,7 @@ export class AccountPersistenceAdapter implements AccountPersistencePort {
     };
 
     const accountEntity = await AccountEntity.findOne(findOptions);
-
-    if (!accountEntity) {
-      // TODO: Return domain or null.
-      throw new Error('Account not found.');
-    }
+    if (!accountEntity) return null;
 
     const accountDomain = this.accountMapper.toDomain(accountEntity);
     return accountDomain;
